@@ -1,24 +1,31 @@
 ---
-const { variant = "secondary", link, alternative, ...rest } = Astro.props;
+const { variant = "secondary", href, ...rest } = Astro.props;
 
-const Tag = link ? "a" : "button";
+const element = href ? "a" : "button";
 
-const restOfAttr = Tag === "button" && rest;
+const options = {
+  a: {
+    tag: "a",
+    props: { href },
+  },
+  button: {
+    tag: "button",
+    props: { ...rest },
+  },
+};
+
+const { tag, props } = options[element];
+
+const Tag = tag;
 ---
 
-<Tag
-  href={link}
-  class="btn"
-  data-variant={variant}
-  data-alternative={alternative}
-  {...restOfAttr}
->
+<Tag data-variant={variant} {...props}>
   <slot />
 </Tag>
 
 <style>
   @layer components {
-    .btn {
+    :is(a, button) {
       all: unset;
       font: inherit;
       border: 0;

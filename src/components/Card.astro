@@ -1,5 +1,5 @@
 ---
-const { title, description, link, iconName } = Astro.props;
+const { title, description, href, iconName } = Astro.props;
 
 import Icon from "./Icon.astro";
 import Button from "./Button.astro";
@@ -11,7 +11,7 @@ import Button from "./Button.astro";
   <p>
     {description}
   </p>
-  <Button variant="ghost" {link}>Get started</Button>
+  <Button variant="ghost" {href}>Get started</Button>
 </li>
 
 <style>
