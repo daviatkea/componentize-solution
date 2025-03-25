@@ -1,12 +1,22 @@
 ---
 const { title, description, href, iconName } = Astro.props;
 
-import Icon from "./Icon.astro";
+// import Icon from "./Icon.astro";
 import Button from "./Button.astro";
+
+const Icon = await import(`../icons/${iconName}.svg`).then(
+  (module) => module.default
+);
 ---
 
 <li>
-  {iconName && <Icon name={iconName} />}
+  {
+    iconName && (
+      <div class="icon">
+        <Icon />
+      </div>
+    )
+  }
   <h3>{title}</h3>
   <p>
     {description}
@@ -25,7 +35,8 @@ import Button from "./Button.astro";
       padding: var(--section-space);
       background: #fff;
       border-radius: 0.5rem;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      box-shadow:
+        0 20px 25px -5px rgba(0, 0, 0, 0.1),
         0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
 
@@ -35,6 +46,16 @@ import Button from "./Button.astro";
 
     h3 {
       margin: 0;
+    }
+
+    .icon {
+      color: #fff;
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-top: calc(var(--section-space) * -1 - 1rlh);
+      padding: 0.5rem;
+      border-radius: 1e5px;
+      background: var(--cta-bg);
     }
   }
 </style>
